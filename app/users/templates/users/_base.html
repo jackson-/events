@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<!-- CSS are placed here -->
+	<link media="all" type="text/css" rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+	<link media="all" type="text/css" rel="stylesheet" href="{% static "css/styles.css" %}">
+	<link media="all" type="text/css" rel="stylesheet" href="{% static "font-awesome/css/font-awesome.min.css" %}">
+	
+	<!-- Scripts are placed here -->
+	<script src="{% static "js/jquery.min.js" %}"></script>
+	<script src="{% static "js/mustache.min.js" %}"></script>
+	<script src="{% static "js/jquery-ui.min.js" %}" defer></script>
+	<script src="{% static "js/jquery.cookie.min.js" %}" defer></script>
+	<script src="{% static "js/bootstrap.min.js" %}" defer></script>
+	<script src="{% static "js/django_ajax.js" %}" defer></script>
+	<script src="{% static "js/spa.js" %}" defer></script>
+	<script src="{% static "js/mustache.min.js" %}" defer></script>
+	<script src="{% static "js/d3.min.js" %}" defer></script>
+	<script src="{% static "js/index.js" %}" defer></script>
+	<!-- <script src="{% static "js/repeat.js" %}" defer></script> -->
+</head>
+<body>
+	<div class="container">
+		{% block header %}
+		<nav>
+		<p><a href="/" id = "header">events</a></p>
+		<a href="/current">current events</a> |
+		<a href="/past">past events</a> |
+		<a href="/">all events</a>
+		</nav>
+		<div id = 'event_form'>
+			<h3>Add an event</h3>
+			<form action='/' method = 'POST'>
+			{% csrf_token %}
+			<label for = 'date'>Date</label>
+			<input type = 'date' name = 'date' value = '2015-01-01'>
+			<label for = 'date'>Time</label>
+			<input type = 'time' name = 'time' value = '00:00'>
+			<label for = 'location'>Location</label>
+			<input type = 'text' name = 'location'>
+			<label for = 'people'>People</label>
+			<input type = 'text' name = 'people'>
+			<label for = 'description'>Description</label>
+			<input type = 'text' name = 'description'>
+			<input type = 'submit' value = 'Submit'>
+			</form>
+		</div>
+		{% endblock %}
+		{% block content %}
+		<h4>schedule listing / current events</h4>
+		<div id = 'event_list'>
+			<div id = "table-labels" class= 'row'>
+				<div class = "col-xs-1"></div>
+				<div class = "col-xs-2">Date</div>
+				<div class = "col-xs-2">Time</div>
+				<div class = "col-xs-2">Location</div>
+				<div class = "col-xs-2">People</div>
+				<div class = "col-xs-3">Description</div>
+			</div>
+			{% for event in events %}
+				<div class = "row event" id = "{{event.id}}">
+					<div class = "col-xs-1"><a href="" class = "editor" data-toggle = "modal" data-target="#myModal">Edit|</a><a href="" class = "deleter">Delete</a></div>
+					<div class = "col-xs-2 event-data event-date">{{event.date}}</div>
+					<div class = "col-xs-2 event-data event-time">{{event.time|time:"g:iA"}}</div>
+					<div class = "col-xs-2 event-data event-location">{{event.location}}</div>
+					<div class = "col-xs-2 event-data event-people">{{event.people}}</div>
+					<div class = "col-xs-3 event-data event-desc">{{event.description}}</div>
+				</div>
+				<div class = "row" id = "hr-{{event.id}}">
+				<span class = "col-xs-1"><hr></span>
+				<span class = "col-xs-2"><hr class = "date-hr"></span>
+				<span class = "col-xs-8"><hr></span>
+				</div>
+			{% endfor %}
+		</div>
+		{% endblock %}
+	</div>
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+      </div>
+      <div class="modal-body">
+       	<form id ="edit-form">
+			{% csrf_token %}
+			<p><label for = 'date'>Date</label>
+			<input class = 'date-input' type = 'date' name = 'date' value = '2015-01-01'></p>
+			<p><label for = 'time'>Time</label>
+			<input type = 'time' class = 'time-input' name = 'time' value = '00:00:00'></p>
+			<p><label for = 'location'>Location</label>
+			<input type = 'text' class = 'location-input' name = 'location'></p>
+			<p><label for = 'people'>People</label>
+			<input type = 'text' class = 'people-input' name = 'people'></p>
+			<p><label for = 'description'>Description</label>
+			<input type = 'text' class = 'description-input' name = 'description'></p>
+			<p><input type = 'submit' value = 'Submit'></p>
+		</form>
+      </div>
+      <div class="modal-footer">
+<!--         <button type="button" class="btn btn-primary">Save changes</button>
+ -->      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

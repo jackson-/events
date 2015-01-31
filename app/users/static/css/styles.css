@@ -1,0 +1,45 @@
+body {
+/*	background: url("/static/images/bg1.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;*/
+	overflow:scroll;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+nav a:hover{
+	-moz-transform: scale(1.35);
+	-webkit-transform: scale(1.35);
+	-ms-transform: scale(1.35);
+}
+
+#header {
+	font-size:31.5px;
+	text-decoration: underline;
+	color:black;
+	font-weight: bold;
+	margin: 9px 0;
+}
+
+.event-data {
+	font-size:17.5px;
+	color:black;
+	font-weight: bold;
+}
+
+#ajaxLoadingImage{
+	position: absolute;
+	z-index: 100;
+}
+
+#table-labels {
+	background-color: #d6d6c2;
+	margin-bottom: 10px;
+}
+
+.date-hr {
+	border:0;
+	height:1px;
+	background-color: black;
+}

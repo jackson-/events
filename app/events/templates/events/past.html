@@ -1,0 +1,29 @@
+{% extends base_template %}
+{% block content %}
+		<h4>schedule listing / current events</h4>
+		<div id = 'event_list'>
+			<div id = "table-labels" class= 'row'>
+				<div class = "col-xs-1"></div>
+				<div class = "col-xs-2">Date</div>
+				<div class = "col-xs-2">Time</div>
+				<div class = "col-xs-2">Location</div>
+				<div class = "col-xs-2">People</div>
+				<div class = "col-xs-3">Description</div>
+			</div>
+			{% for event in events %}
+				<div class = "row" id = "{{event.id}}">
+					<div class = "col-xs-1"><a href="" class = "editor" data-toggle = "modal" data-target="#myModal">Edit|</a><a href="" class = "past-deleter">Delete</a></div>
+					<div class = "col-xs-2 event-data">{{event.date}}</div>
+					<div class = "col-xs-2 event-data">{{event.time|time:"g:iA"}}</div>
+					<div class = "col-xs-2 event-data">{{event.location}}</div>
+					<div class = "col-xs-2 event-data">{{event.people}}</div>
+					<div class = "col-xs-3 event-data">{{event.description}}</div>
+				</div>
+				<div class = "row" id = "hr-{{event.id}}">
+				<span class = "col-xs-1"><hr></span>
+				<span class = "col-xs-2"><hr class = "date-hr"></span>
+				<span class = "col-xs-8"><hr></span>
+				</div>
+			{% endfor %}
+		</div>
+{% endblock %}
